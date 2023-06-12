@@ -22,8 +22,6 @@
                         @enderror
                     </div>
                 </div>
-
-
                 <div class="row mb-3">
                     <label for="fullName" class="col-sm-2 col-form-label fw-semibold">Full Name</label>
                     <div class="col-sm-10">
@@ -61,7 +59,7 @@
                         <textarea type="text"
                             class="form-control @error('address') is-invalid @enderror @if (!empty(old('address'))) is-valid @endif"
                             id="address" placeholder="Enter your address ..." name="address" cols="10" rows="5"
-                            value="{{ old('address') }}"></textarea>
+                            >{{ old('address') }}</textarea>
                         @error('address')
                             <div class="invalid-feedback">
                                 {{ $message }}

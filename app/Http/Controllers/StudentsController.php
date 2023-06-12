@@ -3,20 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Students;
-use Illuminate\Http\Response;
 use App\Http\Requests\StoreStudentsRequest;
 use App\Http\Requests\UpdateStudentsRequest;
+use Illuminate\Http\Request;
 
 class StudentsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->query('search');
+
+        if (!empty($search)) {
+            $data  = Students::where('students.id_student', 'LIKE', '%' . $search . '%')->paginate(10)->fragment('std');
+        } else {
+            $data = Students::paginate(10)->fragment('std');
+        }
+
         $data = [
             'title' => 'Students',
-            'students' => Students::all(),
+            'students' => $data,
+            'search' => $data ?? null,
         ];
 
         return view('students.student', $data);
@@ -46,9 +55,9 @@ class StudentsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreStudentsRequest $request)
+    public function store(StoreStudentsRequest $request, Students $students)
     {
-        $validate = $request->validated();
+        $request->validated();
 
         $students = new Students;
 
@@ -95,16 +104,28 @@ class StudentsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateStudentsRequest $request, Students $students, $student_id)
+    public function update(UpdateStudentsRequest $request, Students $students, $id_student)
     {
-        dd($student_id);
+        $data = [
+            'fullName' => $request->fullName,
+            'gender' => $request->gender,
+            'address' => $request->address,
+            'email' => $request->email,
+            'phone' => $request->phone,
+        ];
+
+        $students->where('id_student', $id_student)->update($data);
+
+        return redirect('students')->with('success', 'Student updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Students $students)
+    public function destroy(Students $students, $id_student)
     {
-        //
+        $data = $students->find($id_student);
+        $data->delete();
+        return redirect('students')->with('success', 'Student deleted successfully');
     }
 }

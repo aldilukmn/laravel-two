@@ -22,24 +22,24 @@ class StoreStudentsRequest extends FormRequest
     public function rules(): array
     {
         return [
-           'id_student' => 'required|unique:students,id_student|min:11|max:11',
-           'fullName' => 'required',
-           'gender' => 'required',
-           'address' => 'required',
-           'email' => 'required|email|unique:students,email',
-           'phone' => 'required|numeric',
+            'id_student' => 'required|unique:students,id_student|min:11|max:11',
+            'fullName' => 'required',
+            'gender' => 'required',
+            'address' => 'required',
+            'email' => 'required|email|unique:students,email',
+            'phone' => 'required|numeric',
         ];
     }
 
     public function messages(): array
-{
-    return [
-        'id_student.required' => 'Student Id field is required.',
-        'fullName.required' => 'Full Name is required',
-        'gender.required' => 'Gender is required',
-        'address.required' => 'Address is required',
-        'email.required' => 'Email is required',
-        'phone.required' => 'Phone is required',
-    ];
-}
+    {
+        return [
+            'id_student.required' => 'Student Id field is required.',
+            'fullName.required' => 'Full Name is required',
+            'gender.required' => 'Gender is required',
+            'address.required' => 'Address is required',
+            'email.required' => 'Email is required',
+            'phone.required' => 'Phone is required',
+        ];
+    }
 }

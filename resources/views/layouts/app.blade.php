@@ -25,6 +25,7 @@
             @include('partials.footers.footer')
         </footer>
     </div>
+    <script src="{{ asset('assets/js/sweetAlert.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.js') }}"></script>
 </body>
 

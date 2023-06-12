@@ -15,7 +15,7 @@
                         <input type="number"
                             class="form-control @error('id_student') is-invalid @enderror @if (!empty(old('id_student'))) is-valid @endif"
                             id="id_student" placeholder="Enter your full student id ..." name="id_student"
-                            value="{{ $id_student }}" disabled>
+                            value="{{ $id_student }}" readonly>
                         @error('id_student')
                             <div class="invalid-feedback">
                                 {{ $message }}

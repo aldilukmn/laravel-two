@@ -71,7 +71,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $students->links() }}
+                {!! $students->appends(Request::except('page'))->render() !!}
             </div>
         </div>
     </div>

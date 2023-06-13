@@ -17,9 +17,9 @@ class StudentsController extends Controller
         $search = $request->query('search');
 
         if (!empty($search)) {
-            $data  = Students::where('students.id_student', 'LIKE', '%' . $search . '%')->paginate(10)->fragment('std');
+            $data  = Students::where('students.id_student', 'LIKE', '%' . $search . '%')->paginate(10)->onEachSide(1)->fragment('std');
         } else {
-            $data = Students::paginate(10)->fragment('std');
+            $data = Students::paginate(10)->onEachSide(1)->fragment('std');
         }
 
         $data = [

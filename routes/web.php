@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StudentsController;
+use App\Http\Middleware\UserCheckLogin;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,3 +26,5 @@ Route::get('/', [StudentsController::class, 'home']);
 Route::resource('students', StudentsController::class);
 
 Route::get('auth/google', [GoogleController::class, 'redirectToGoole'])->name('google-auth');
+
+Route::get('login', [LoginController::class, 'Login']);

@@ -25,14 +25,14 @@ class UsersSeeder extends Seeder
                 'name' => 'manager',
                 'username' => 'manager',
                 'password' => bcrypt('12345'),
-                'level' => 1,
+                'level' => 2,
                 'email' => 'manager@mail.com',
             ],
             [
                 'name' => 'employee',
                 'username' => 'employee',
                 'password' => bcrypt('12345'),
-                'level' => 1,
+                'level' => 3,
                 'email' => 'employee@mail.com',
             ],
         ];

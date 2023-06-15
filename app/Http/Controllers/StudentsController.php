@@ -31,15 +31,6 @@ class StudentsController extends Controller
         return view('students.student', $data);
     }
 
-    public function home()
-    {
-        $data = [
-            'title' => 'Home',
-        ];
-
-        return view('students.home', $data);
-    }
-
     /**
      * Show the form for creating a new resource.
      */

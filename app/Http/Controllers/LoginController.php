@@ -16,12 +16,8 @@ class LoginController extends Controller
             'title' => 'Login',
         ];
 
-        if ($user = Auth::user()) {
-            if ($user->level == '1') {
-                return redirect()->intended('/home');
-            } elseif ($user->level == '2') {
-                return redirect()->intended('/students');
-            }
+        if (Auth::user()) {
+            return redirect()->intended('/');
         }
 
         return view('login.index', $data);
@@ -38,13 +34,12 @@ class LoginController extends Controller
 
         if (Auth::attempt($credential)) {
             $request->session()->regenerate();
-            $user = Auth::user();
-            if ($user->level == '1') {
-                return redirect()->intended('/home');
-            } elseif ($user->level == '2') {
-                return redirect()->intended('/students');
-            }
-            // return redirect()->intended('/');
+            if (Auth::user()) {
+                $data = [
+                    'user' => Auth::user(),
+                ];
+                return redirect()->intended('/');
+            };
         }
 
         return back()->withErrors([

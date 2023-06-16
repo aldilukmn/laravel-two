@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LayoutsController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StudentsController;
 use App\Http\Middleware\UserCheckLogin;
@@ -22,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('partials.mains.student');
 // });
 
-// Route::get('/', [StudentsController::class, 'home']);
+Route::get('/', [LayoutsController::class, 'index'])->middleware('auth');
 
 Route::resource('students', StudentsController::class);
 
@@ -31,17 +33,17 @@ Route::get('auth/google', [GoogleController::class, 'redirectToGoole'])->name('g
 // Route::get('login', [LoginController::class, 'Login']);
 
 
-Route::controller(LoginController::class)->group(function(){
+Route::controller(LoginController::class)->group(function () {
     Route::get('login', 'login')->name('login');
     Route::post('login/process', 'process');
     Route::get('logout', 'logout');
 });
 
-Route::group(['middleware' => ['auth']], function() {
-    Route::group(['middleware' => ['UserCheckLogin:1']], function() {
+Route::group(['middleware' => ['auth']], function () {
+    Route::group(['middleware' => ['UserCheckLogin:1']], function () {
         Route::resource('/home', HomeController::class);
     });
-    Route::group(['middleware' => ['UserCheckLogin:2']], function() {
+    Route::group(['middleware' => ['UserCheckLogin:2']], function () {
         Route::resource('/students', StudentsController::class);
     });
 });
